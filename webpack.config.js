@@ -7,7 +7,6 @@ const path = require('path'),
 const extractPlugin = new ExtractTextPlugin({filename: './assets/css/app.css'});
 
 const config = {
-
   context: path.resolve(__dirname, 'src'),
 
   entry: {
@@ -16,7 +15,7 @@ const config = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './assets/js/[name].bundle.js'
+    filename: './assets/js/[name].bundle.js',
   },
 
   module: {
@@ -29,7 +28,7 @@ const config = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['env']
+            presets: ['es2015']
           }
         }
       },
