@@ -7,10 +7,10 @@ describe('GithubUserTest', function () {
    it('test valid creation of obj', function () {
        const validResponse = {
            name: 'baboon',
-           bio: "I'r baboon",
-           avatar_url: "https://fakeadress.com/avatar.png",
-           html_url: "https://fakeadress.com/index.html",
-           login: "baboonX"
+           bio: 'I\'r baboon',
+           avatar_url: 'https://fakeadress.com/avatar.png',
+           html_url: 'https://fakeadress.com/index.html',
+           login: 'baboonX'
        };
        const validGithubUser = new GithubUser(validResponse);
 
@@ -18,14 +18,16 @@ describe('GithubUserTest', function () {
    });
 
    it('test invalid creation of obj', function () {
+       let thrown;
+
        try {
-           new GithubUser("some invalid string");
+           new GithubUser('some invalid string');
        } catch (e) {
            expect(e.message).to.be.equal('Invalid profileResponse');
-           const thrown = true;
+           thrown = true;
        }
 
-       expect('boolean' === typeof thrown);
+       expect(thrown).to.be.true;
    });
 });
 

@@ -1,22 +1,27 @@
 export class Profile {
-    constructor(GithubUser, containerId) {
+    constructor(githubUser, containerId) {
         const self = this;
 
-        Object.defineProperty(self, "user", {
+        Object.defineProperty(self, 'user', {
             get: function () {
-                if (!GithubUser instanceof GithubUser) {
+                const undefinedCheck = 'object' !== typeof githubUser
+                    || 'undefined' === typeof githubUser.constructor;
+                const check = undefinedCheck || githubUser.constructor.name !== 'GithubUser';
+
+                if (check) {
                     throw new Error('GithubUser is not instance of itself');
                 }
 
-                return GithubUser;
+                return githubUser;
             }
         });
 
-        Object.defineProperty(self, "container", {
+        Object.defineProperty(self, 'container', {
             get: function () {
                 const element = document.getElementById(containerId);
+                console.log(element);
 
-                if ('object' !== typeof element) {
+                if (null === element) {
                     throw new Error('containerId ' + containerId + ' was not found');
                 }
 
@@ -26,6 +31,7 @@ export class Profile {
     }
 
     getMediaElement() {
+        const self = this;
         const mediaElement = document.createElement('DIV');
         mediaElement.classList.add('media');
 
@@ -73,7 +79,8 @@ export class Profile {
         return mediaElement;
     }
 
-    static append() {
+    appendHtml() {
+        const self = this;
         self.container.appendChild(self.getMediaElement());
     }
 }
