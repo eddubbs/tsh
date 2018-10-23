@@ -4,47 +4,27 @@ export class GithubEvent {
 
         Object.defineProperty(self, "payload", {
             get: function () {
-                checkIfObj(responseBody.payload);
-
                 return responseBody.payload;
             }
         });
 
         Object.defineProperty(self, "repo", {
             get: function () {
-                checkIfObj(responseBody.repo);
-
                 return responseBody.repo;
             }
         });
 
-        Object.defineProperty(self, "type", {
+        Object.defineProperty(self, "eventType", {
             get: function () {
-                checkIfString(responseBody.type);
-
                 return responseBody.type;
             }
         });
 
         Object.defineProperty(self, "created", {
             get: function () {
-                checkIfString(responseBody.created_at);
-
                 return responseBody.created_at;
             }
         });
-
-        function checkIfObj(item) {
-            if ('object' !== typeof item) {
-                throw new Error(item + 'is not an object');
-            }
-        }
-
-        function checkIfString(item) {
-            if ('string' !== typeof item) {
-                throw new Error(item + 'is not a string');
-            }
-        }
 
         function validateProfileResponse() {
             let allowedObjectTypes = [

@@ -60,7 +60,8 @@ export class App {
                   let endpoint = 'https://api.github.com/users/{username}/events/public';
                   endpoint = endpoint.replace('{username}', self.username);
                   fetch(endpoint)
-                      .then(response => { return handleResponse(response) })
+                      .then(response => {
+                          return handleResponse(response) })
                       .then(body => updateGithubHistory(body))
               }
 
