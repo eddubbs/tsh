@@ -44,4 +44,31 @@ export class GithubUser {
 
         validateProfileResponse();
     }
+
+    static fromGithubEventResponse(eventResponse) {
+        if ('object' !== typeof eventResponse.actor) {
+            throw new Error('Actor in eventResponse not found');
+        }
+
+        const actor = eventResponse.actor;
+        validateEventResponse();
+
+        function validateEventResponse() {
+            let keys = ['display_login', 'url', 'avatar_url'];
+
+            Object.values(keys).map(function (item) {
+                if ('undefined' === typeof actor[item]) {
+                    throw new Error('Invalid actor object in response from Github');
+                }
+            })
+        }
+
+        return new GithubUser({
+            'name': false,
+            'bio': false,
+            'avatar_url': actor.avatar_url,
+            'html_url': actor.url,
+            'login': actor.display_login,
+        });
+    }
 }

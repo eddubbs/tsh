@@ -9,7 +9,7 @@ describe('GithubEventTest', function () {
            payload: {},
            repo: {},
            type: 'fake',
-           created_at: '2066-06-06x§',
+           created_at: '2066-06-06',
        };
        const validGithubEvent = new GithubEvent(validResponse);
 

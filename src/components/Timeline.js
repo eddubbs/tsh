@@ -1,60 +1,39 @@
+import {EventCollectionFactory} from "../factory/EventCollectionFactory";
+
 export class Timeline {
-    constructor(identifier, response) {
+    constructor(containerId, responseBody) {
         const self = this;
 
-        Object.defineProperty(self, "whitelistedEvents", {
+        Object.defineProperty(self, 'container', {
             get: function () {
-                return {
-                    PullRequestEvent: {
-                        allowed: ['opened', 'closed'],
-                    },
-                    PullRequestReviewCommentEvent: {
-                        allowed: ['created', 'deleted', 'edited'],
-                    },
-                };
-            }
-        });
-
-        Object.defineProperty(self, "element", {
-            get: function () {
-                const element = document.getElementById(identifier);
+                const element = document.getElementById(containerId);
 
                 if (null === element) {
-                    throw new Error(identifier + 'not found');
+                    throw new Error(containerId + 'not found');
                 }
 
                 return element;
             },
         });
 
-        Object.defineProperty(self, "collection", {
+        Object.defineProperty(self, 'collection', {
             get: function () {
-                if ('object' !== typeof response) {
-                    throw new Error("invalid response: " + response);
+                if ('object' !== typeof responseBody) {
+                    throw new Error('Invalid responseBody');
                 }
 
-                return response;
+                return new EventCollectionFactory(responseBody).getAllowedEventsOnly();
             }
         });
     }
 
-    prepareCollection() {
-        let collection = [];
+    renderHtml() {
+        const self = this;
+        let even = false;
 
-        function handleWhitelistedEvent(item) {
-            if ('string' !== typeof item.type || 'object' !== typeof item.payload) {
-                throw new Error('Provided values must be string');
-            }
+        Object.values(self.collection).map(function (item) {
+            even = !even;
+        })
 
-            Object.keys(self.whitelistedEvents).map(function (eventKey, eventProperties) {
-                const typeCheck = eventKey === item.type;
-                const payloadActionCheck = 'string' === typeof item.payload.action;
-
-                if (typeCheck && payloadActionCheck && eventProperties.allowed.includes(item.payload.action)) {
-                    collection.push({
-                    })
-                }
-            });
-        }
     }
 }

@@ -30,7 +30,7 @@ export class EventCollectionFactory {
         });
     }
 
-    withAllowedEventsOnly() {
+    getAllowedEventsOnly() {
         const self = this;
         let cacheArr = [];
 

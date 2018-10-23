@@ -9,7 +9,7 @@ describe('EventCollectionFactoryTest', function () {
 
         try {
             const factory = new EventCollectionFactory([{fake: 'non-valid'}, {fake: 'non-valid'}]);
-            thrown = factory.withAllowedEventsOnly();
+            thrown = factory.getAllowedEventsOnly();
         } catch (e) {
             expect(e.message).to.be.equal('Invalid responseBody');
             thrown = true;
@@ -18,9 +18,9 @@ describe('EventCollectionFactoryTest', function () {
         expect(thrown).to.be.true;
     });
 
-    it('test valid on withAllowedEventsOnly()', function () {
+    it('test valid on getAllowedEventsOnly()', function () {
         const factory = new EventCollectionFactory(validResponse);
-        const withAllowed = factory.withAllowedEventsOnly();
+        const withAllowed = factory.getAllowedEventsOnly();
         const properEventsCount = 14;
         const randomNumber = Math.floor(Math.random() * 14) + 1;
         const randomValidEvent = withAllowed[randomNumber];

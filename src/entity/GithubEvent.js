@@ -1,26 +1,28 @@
+import {GithubUser} from "./GithubUser";
+
 export class GithubEvent {
     constructor(responseBody) {
         const self = this;
 
-        Object.defineProperty(self, "payload", {
+        Object.defineProperty(self, 'payload', {
             get: function () {
                 return responseBody.payload;
             }
         });
 
-        Object.defineProperty(self, "repo", {
+        Object.defineProperty(self, 'repo', {
             get: function () {
                 return responseBody.repo;
             }
         });
 
-        Object.defineProperty(self, "eventType", {
+        Object.defineProperty(self, 'eventType', {
             get: function () {
                 return responseBody.type;
             }
         });
 
-        Object.defineProperty(self, "created", {
+        Object.defineProperty(self, 'created', {
             get: function () {
                 return responseBody.created_at;
             }
@@ -45,5 +47,32 @@ export class GithubEvent {
         }
 
         validateProfileResponse();
+    }
+
+    returnHtmlNode(even) {
+        const self = this;
+        const mainNode = document.createElement('DIV');
+        const marker = document.createElement('DIV');
+        const heading = document.createElement('P');
+        const nestedContent = document.createElement('DIV');
+        mainNode.classList.add('timeline-item');
+        marker.classList.add('timeline-marker');
+        heading.classList.add('heading');
+        heading.innerHTML = new Date(self.created).toDateString();
+
+        if ('undefined' !== even && true === even) {
+            mainNode.classList.add('is-primary');
+            marker.classList.add('is-primary');
+        }
+
+        function prepareNestedContent() {
+            const nestedSpan = document.createElement('SPAN');
+            const img = document.createElement('IMG');
+            const anchor = document.createElement('A');
+            anchor.href = '';
+
+        }
+
+
     }
 }
