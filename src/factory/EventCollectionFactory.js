@@ -53,6 +53,19 @@ export class EventCollectionFactory {
         throw new Error(githubEvent.eventType + ' not found in allowedKeys')
     }
 
+    getFilledNode() {
+        const self = this;
+        const filledNode = document.createElement('DIV');
+        let isEven = true;
+
+        Object.values(self.getAllowedEventsOnly()).map(function (item) {
+            isEven = !isEven;
+            filledNode.append(item.getFilledNode(isEven));
+        });
+
+        return filledNode;
+    }
+
     getAllowedEventsOnly() {
         const self = this;
         let cacheArr = [];

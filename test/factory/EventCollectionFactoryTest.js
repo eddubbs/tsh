@@ -49,6 +49,19 @@ describe('EventCollectionFactoryTest', function () {
         expect(simplePayloadFromPR).to.be.equal('pull_request');
         expect(simplePayloadFromReview).to.be.equal('comment');
     });
+
+    it('test getFilledNode() method from valid data', function () {
+        // const pullRequestEvent = new GithubEvent(validResponse[1]);
+        // const pullRequestReviewCommentEvent = new GithubEvent(validResponse[11]);
+        const factory = new EventCollectionFactory(validResponse);
+        const filledNode = factory.getFilledNode();
+        const childrenLength = filledNode.children.length;
+        const primaryTimelineItemLength = filledNode.querySelectorAll('.timeline-item.is-primary').length;
+        const primaryTimelineMarkerLength = filledNode.querySelectorAll('.timeline-marker.is-primary').length;
+
+        expect(childrenLength / primaryTimelineItemLength).to.be.equal(2);
+        expect(childrenLength / primaryTimelineMarkerLength).to.be.equal(2);
+    });
 });
 
 const validResponse = [
