@@ -1,5 +1,6 @@
 import './assets/scss/app.scss';
 import $ from 'cash-dom';
+import {GithubUser} from "./components/GithubUser";
 
 export class App {
   initializeApp() {
@@ -14,7 +15,6 @@ export class App {
           },
       };
 
-      setDefaults();
       addEventListeners();
 
       Object.defineProperty(self, "username", {
@@ -33,15 +33,6 @@ export class App {
               throw new Error('app.username is not valid');
           },
       });
-
-      function setDefaults() {
-          self.profile = {
-              bio: '',
-              avatar_url: '',
-              html_url: '',
-              login: '',
-          };
-      }
 
       function handleWhitelistedEvent(item) {
           if ('string' !== typeof item.type || 'object' !== typeof item.payload) {
@@ -74,8 +65,7 @@ export class App {
               }
 
               function updateGithubProfile(body) {
-                  self.profile = body;
-                  console.log(body);
+                  self.profile = new GithubUser(body);
                   updateProfile();
               }
 
@@ -167,9 +157,9 @@ export class App {
       }
 
       function updateProfile() {
-          $('#profile-name').text(self.username);
-          $('#profile-image').attr('src', self.profile.avatar_url);
-          $('#profile-url').attr('href', self.profile.html_url).text(self.profile.login);
+          $('#profile-name').text(self.profile.name);
+          $('#profile-image').attr('src', self.profile.avatar);
+          $('#profile-url').attr('href', self.profile.url).text(self.profile.login);
           $('#profile-bio').text(self.profile.bio || '(no information)')
       }
   }

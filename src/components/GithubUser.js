@@ -2,6 +2,12 @@ export class GithubUser {
     constructor(profileResponse) {
         const self = this;
 
+        Object.defineProperty(self, "name", {
+            get: function () {
+                return profileResponse.name;
+            }
+        });
+
         Object.defineProperty(self, "login", {
             get: function () {
                 return profileResponse.login;
@@ -27,7 +33,7 @@ export class GithubUser {
         });
 
         function validateProfileResponse() {
-            let keys = ['bio', 'avatar_url', 'html_url', 'login'];
+            let keys = ['name', 'bio', 'avatar_url', 'html_url', 'login'];
 
             Object.values(keys).map(function (item) {
                 if ('undefined' === typeof profileResponse[item]) {
