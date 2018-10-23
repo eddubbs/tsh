@@ -1,7 +1,7 @@
 'use strict';
 
 import {Profile} from "../../src/components/Profile";
-import {GithubUser} from "../../src/components/GithubUser";
+import {GithubUser} from "../../src/entity/GithubUser";
 const expect = require('chai').expect;
 
 describe('ProfileComponentTest', function () {

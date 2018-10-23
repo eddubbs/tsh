@@ -1,6 +1,6 @@
 import './assets/scss/app.scss';
 import $ from 'cash-dom';
-import {GithubUser} from "./components/GithubUser";
+import {GithubUser} from "./entity/GithubUser";
 
 export class App {
   initializeApp() {

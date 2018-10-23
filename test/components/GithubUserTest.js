@@ -1,6 +1,6 @@
 'use strict';
 
-import {GithubUser} from '../../src/components/GithubUser';
+import {GithubUser} from '../../src/entity/GithubUser';
 const expect = require('chai').expect;
 
 describe('GithubUserTest', function () {

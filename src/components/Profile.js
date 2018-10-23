@@ -19,7 +19,6 @@ export class Profile {
         Object.defineProperty(self, 'container', {
             get: function () {
                 const element = document.getElementById(containerId);
-                console.log(element);
 
                 if (null === element) {
                     throw new Error('containerId ' + containerId + ' was not found');
@@ -74,7 +73,6 @@ export class Profile {
 
         mediaElement.appendChild(getMediaLeft());
         mediaElement.appendChild(getMediaContent());
-
 
         return mediaElement;
     }
