@@ -8,11 +8,9 @@ export class App {
       const whitelistedEvents = {
           PullRequestEvent: {
               allowed: ['opened', 'closed'],
-              handler: handlePullRequestEvent,
           },
           PullRequestReviewCommentEvent: {
               allowed: ['created', 'deleted', 'edited'],
-              handler: handlePullRequestReviewCommentEvent,
           },
       };
 
@@ -77,6 +75,7 @@ export class App {
 
               function updateGithubProfile(body) {
                   self.profile = body;
+                  console.log(body);
                   updateProfile();
               }
 

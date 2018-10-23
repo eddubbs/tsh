@@ -10,6 +10,8 @@ const config = {
 
   context: path.resolve(__dirname, 'src'),
 
+  mode: 'development',
+
   entry: {
     app: './index.js'
   },
