@@ -1,4 +1,4 @@
-export class timeline {
+export class Timeline {
     constructor(identifier, response) {
         const self = this;
 
@@ -7,11 +7,9 @@ export class timeline {
                 return {
                     PullRequestEvent: {
                         allowed: ['opened', 'closed'],
-                        handler: handlePullRequestEvent,
                     },
                     PullRequestReviewCommentEvent: {
                         allowed: ['created', 'deleted', 'edited'],
-                        handler: handlePullRequestReviewCommentEvent,
                     },
                 };
             }
@@ -21,11 +19,11 @@ export class timeline {
             get: function () {
                 const element = document.getElementById(identifier);
 
-                if ('object' === typeof element) {
-                    return element;
+                if (null === element) {
+                    throw new Error(identifier + 'not found');
                 }
 
-                throw new Error(identifier + 'not found');
+                return element;
             },
         });
 
