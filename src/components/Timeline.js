@@ -22,18 +22,19 @@ export class Timeline {
                     throw new Error('Invalid responseBody');
                 }
 
-                return new EventCollectionFactory(responseBody).getAllowedEventsOnly();
+                return new EventCollectionFactory(responseBody);
             }
         });
     }
 
     renderHtmlCollection() {
         const self = this;
-        let even = false;
+        const headline = document.createElement('H2');
+        headline.classList.add('subtitle');
+        headline.classList.add('is-4');
+        headline.innerHTML = 'HISTORY';
 
-        Object.values(self.collection).map(function (item) {
-            even = !even;
-        })
-
+        self.container.append(headline);
+        self.container.append(self.collection.getFilledNode());
     }
 }

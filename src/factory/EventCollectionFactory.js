@@ -63,6 +63,8 @@ export class EventCollectionFactory {
             filledNode.append(item.getFilledNode(isEven));
         });
 
+        filledNode.classList.add('timeline');
+
         return filledNode;
     }
 

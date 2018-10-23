@@ -2,6 +2,7 @@
 
 import {EventCollectionFactory} from "../../src/factory/EventCollectionFactory";
 import {GithubEvent} from "../../src/entity/GithubEvent";
+import {Timeline} from "../../src/components/Timeline";
 const expect = require('chai').expect;
 
 describe('EventCollectionFactoryTest', function () {
@@ -51,8 +52,6 @@ describe('EventCollectionFactoryTest', function () {
     });
 
     it('test getFilledNode() method from valid data', function () {
-        // const pullRequestEvent = new GithubEvent(validResponse[1]);
-        // const pullRequestReviewCommentEvent = new GithubEvent(validResponse[11]);
         const factory = new EventCollectionFactory(validResponse);
         const filledNode = factory.getFilledNode();
         const childrenLength = filledNode.children.length;
@@ -62,6 +61,13 @@ describe('EventCollectionFactoryTest', function () {
         expect(childrenLength / primaryTimelineItemLength).to.be.equal(2);
         expect(childrenLength / primaryTimelineMarkerLength).to.be.equal(2);
     });
+
+    it('test renderHtmlCollection() from Timeline', function () {
+        const timeline = new Timeline('row', validResponse);
+        timeline.renderHtmlCollection();
+        expect(document.getElementById('row').children.length).to.be.equal(2);
+        expect(document.querySelector('.timeline').children.length).to.be.equal(14);
+    })
 });
 
 const validResponse = [
