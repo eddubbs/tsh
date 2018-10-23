@@ -1,6 +1,7 @@
 'use strict';
 
 import {EventCollectionFactory} from "../../src/factory/EventCollectionFactory";
+import {GithubEvent} from "../../src/entity/GithubEvent";
 const expect = require('chai').expect;
 
 describe('EventCollectionFactoryTest', function () {
@@ -37,10 +38,21 @@ describe('EventCollectionFactoryTest', function () {
         }
 
         expect(methodsAllowed.includes(randomValidEvent.payload.action)).to.be.true;
-    })
+    });
+
+    it('test static method getPayloadActionName()', function() {
+        const pullRequestEvent = new GithubEvent(validResponse[1]);
+        const pullRequestReviewCommentEvent = new GithubEvent(validResponse[11]);
+        const simplePayloadFromPR = EventCollectionFactory.getPayloadActionName(pullRequestEvent);
+        const simplePayloadFromReview = EventCollectionFactory.getPayloadActionName(pullRequestReviewCommentEvent);
+
+        expect(simplePayloadFromPR).to.be.equal('pull_request');
+        expect(simplePayloadFromReview).to.be.equal('comment');
+    });
 });
 
-const validResponse = [{
+const validResponse = [
+    {
     "id": "8448335270",
     "type": "PushEvent",
     "actor": {
@@ -6781,5 +6793,5 @@ const validResponse = [{
             "avatar_url": "https://avatars.githubusercontent.com/u/1520669?"
         }
     }
-]
+];
 

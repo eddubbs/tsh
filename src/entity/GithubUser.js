@@ -60,7 +60,7 @@ export class GithubUser {
                 if ('undefined' === typeof actor[item]) {
                     throw new Error('Invalid actor object in response from Github');
                 }
-            })
+            });
         }
 
         return new GithubUser({

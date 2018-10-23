@@ -27,7 +27,7 @@ export class Timeline {
         });
     }
 
-    renderHtml() {
+    renderHtmlCollection() {
         const self = this;
         let even = false;
 

@@ -49,7 +49,6 @@ describe('GithubUserTest', function () {
    })
 });
 
-
 const validPullRequestEvent = {
     "id": "8448335229",
     "type": "PullRequestEvent",

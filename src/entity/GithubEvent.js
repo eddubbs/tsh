@@ -4,6 +4,12 @@ export class GithubEvent {
     constructor(responseBody) {
         const self = this;
 
+        Object.defineProperty(self, 'responseBody', {
+            get: function () {
+                return responseBody;
+            }
+        });
+
         Object.defineProperty(self, 'payload', {
             get: function () {
                 return responseBody.payload;
@@ -51,10 +57,11 @@ export class GithubEvent {
 
     returnHtmlNode(even) {
         const self = this;
+        const user = GithubUser.fromGithubEventResponse(self.responseBody);
         const mainNode = document.createElement('DIV');
         const marker = document.createElement('DIV');
         const heading = document.createElement('P');
-        const nestedContent = document.createElement('DIV');
+        const nestedContent = prepareNestedContent();
         mainNode.classList.add('timeline-item');
         marker.classList.add('timeline-marker');
         heading.classList.add('heading');
@@ -66,13 +73,41 @@ export class GithubEvent {
         }
 
         function prepareNestedContent() {
-            const nestedSpan = document.createElement('SPAN');
-            const img = document.createElement('IMG');
-            const anchor = document.createElement('A');
-            anchor.href = '';
+            function prepareNestedSpanContent() {
+                const nestedSpan = document.createElement('SPAN');
+                const img = document.createElement('IMG');
+                const anchor = document.createElement('A');
+                anchor.href = user.url;
+                anchor.innerText = user.login;
+                img.src = user.avatar;
+                nestedSpan.classList.add('gh-username');
 
+                nestedSpan.appendChild(img);
+                nestedSpan.appendChild(anchor);
+
+                return nestedSpan;
+            }
+
+            function prepareActionSpan() {
+                const actionSpan = document.createElement('SPAN');
+                actionSpan.innerText = self.payload.action;
+                actionSpan.classList.add('timeline__action--js');
+
+                return actionSpan;
+            }
+
+            function prepareEventAnchor() {
+                const eventAnchor = document.createElement('A');
+                const contextCase = '';
+                eventAnchor.innerText = self.payload
+            }
+
+            function appendNodesInOrder() {
+                const nestedContent = document.createElement('DIV');
+                const actionSpan = prepareActionSpan();
+                const nestedSpanContent = prepareNestedSpanContent();
+
+            }
         }
-
-
     }
 }

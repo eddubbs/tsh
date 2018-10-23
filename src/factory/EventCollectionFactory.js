@@ -9,11 +9,13 @@ export class EventCollectionFactory {
                 return [
                     {
                         name: 'PullRequestEvent',
-                        allowed: ['opened', 'closed']
+                        allowed: ['opened', 'closed'],
+                        simpleName: 'pull_request',
                     },
                     {
                         name: 'PullRequestReviewCommentEvent',
-                        allowed: ['created', 'deleted', 'edited']
+                        allowed: ['created', 'deleted', 'edited'],
+                        simpleName: 'comment',
                     },
                 ]
             }
@@ -28,6 +30,27 @@ export class EventCollectionFactory {
                 return responseBody;
             }
         });
+    }
+
+    static getPayloadActionName(githubEvent) {
+        const self = new EventCollectionFactory({});
+        let simpleName;
+
+        if (!(githubEvent instanceof GithubEvent)) {
+            throw new Error('githubEvent is not instance of GithubEvent class');
+        }
+
+        Object.values(self.allowedKeys).map(function (item) {
+            if (item.name === githubEvent.eventType) {
+                simpleName = item.simpleName;
+            }
+        });
+
+        if ('string' === typeof simpleName) {
+            return simpleName;
+        }
+
+        throw new Error(githubEvent.eventType + ' not found in allowedKeys')
     }
 
     getAllowedEventsOnly() {
