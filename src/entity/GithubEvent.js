@@ -86,6 +86,7 @@ export class GithubEvent {
                 mainNode.classList.add('is-primary');
                 marker.classList.add('is-primary');
                 nestedContent.querySelector('.repo-name').classList.add('grey');
+                nestedContent.querySelector('.gh-username').classList.add('grey');
             }
 
             if ('undefined' !== even && false === even) {
