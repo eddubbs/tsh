@@ -54,20 +54,42 @@ export class Profile {
             const profileName = document.createElement('DIV');
             const subtitle = document.createElement('DIV');
             const anchorProfileUrl = document.createElement('A');
+            appendContent();
 
-            mediaContent.classList.add('media-left');
-            profileName.classList.add('title');
-            profileName.classList.add('is-5');
-            profileName.id = 'profile-name';
-            profileName.innerText = self.user.name;
-            subtitle.classList.add('subtitle');
-            subtitle.classList.add('is-6');
-            anchorProfileUrl.href = self.user.url;
-            anchorProfileUrl.id = 'profile-url';
-            anchorProfileUrl.innerText = '@' + self.user.login;
-            subtitle.append(anchorProfileUrl);
-            mediaContent.append(profileName);
-            mediaContent.append(subtitle);
+            function prepareContent() {
+                mediaContent.classList.add('media-left');
+                profileName.classList.add('title');
+                profileName.classList.add('is-5');
+                profileName.id = 'profile-name';
+                profileName.innerHTML = self.user.name;
+                subtitle.classList.add('subtitle');
+                subtitle.classList.add('is-6');
+                anchorProfileUrl.href = self.user.url;
+                anchorProfileUrl.id = 'profile-url';
+                anchorProfileUrl.innerHTML = '@' + self.user.login;
+            }
+
+            function getBioDiv() {
+                const bioDiv = document.createElement('DIV');
+                const bioPara = document.createElement('P');
+                let check = 'string' === typeof self.user.bio;
+
+                bioPara.innerHTML = check ? self.user.bio : '(no information)';
+                bioDiv.classList.add('content');
+                bioDiv.classList.add('wrap');
+                bioDiv.id = 'profile-bio';
+                bioDiv.append(bioPara);
+
+                return bioDiv;
+            }
+
+            function appendContent() {
+                prepareContent();
+                subtitle.append(anchorProfileUrl);
+                mediaContent.append(profileName);
+                mediaContent.append(subtitle);
+                mediaContent.append(getBioDiv());
+            }
 
             return mediaContent;
         }
