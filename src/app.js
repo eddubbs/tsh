@@ -25,6 +25,7 @@ export class App {
 
     fetchProfile(githubUser) {
         const self = this;
+        GithubInput.runSpinner();
         GithubClient.fetchUserProfile(githubUser, self);
     }
 
@@ -44,5 +45,6 @@ export class App {
     updateGithubTimeline(body) {
         const timeline = new Timeline('user-timeline', body);
         timeline.appendHtml();
+        GithubInput.hideSpinner();
     }
 }

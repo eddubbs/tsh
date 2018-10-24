@@ -33,10 +33,13 @@ export class Timeline {
         const filledNode = self.factory.getFilledNode();
         headline.classList.add('subtitle');
         headline.classList.add('is-4');
-
         headline.innerHTML = 'History';
         self.container.innerHTML = '';
         self.container.append(headline);
         self.container.append(filledNode);
+
+        if (filledNode.children.length < 1) {
+            filledNode.innerHTML = 'No public data found.';
+        }
     }
 }

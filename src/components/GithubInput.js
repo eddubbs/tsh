@@ -90,6 +90,17 @@ export class GithubInput {
     cleanseErrorStates() {
         const self = this;
         self.input.classList.remove('input--error');
+        GithubInput.hideSpinner();
+    }
+
+    static runSpinner() {
+        const spinner = document.getElementById('spinner');
+        spinner.classList.remove('is-hidden');
+    }
+
+    static hideSpinner() {
+        const spinner = document.getElementById('spinner');
+        spinner.classList.add('is-hidden');
     }
 
     static getRawHtml() {

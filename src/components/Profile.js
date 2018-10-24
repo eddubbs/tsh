@@ -81,6 +81,7 @@ export class Profile {
         const self = this;
         const profile = document.createElement('DIV');
         const subtitle = document.createElement('H2');
+        subtitle.innerHTML = 'Profile';
         subtitle.classList.add('subtitle');
         subtitle.classList.add('is-4');
         profile.classList.add('profile');

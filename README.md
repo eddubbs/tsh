@@ -26,6 +26,12 @@ yarn
 yarn build
 ```
 
+### Test the code
+
+1. To test the code, run:
+```
+yarn test
+```
 
 # Technical details
 
