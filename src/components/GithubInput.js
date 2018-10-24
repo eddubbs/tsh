@@ -1,5 +1,8 @@
+import {GithubUser} from "../entity/GithubUser";
+import {App} from "../app";
+
 export class GithubInput {
-    constructor(elementId) {
+    constructor(elementId, mainApp) {
         const self = this;
 
         Object.defineProperty(self, 'container', {
@@ -7,79 +10,86 @@ export class GithubInput {
                 const element = document.getElementById(elementId);
 
                 if (null === element) {
-                    throw new Error('Input with id ' + elementId + ' not found');
+                    throw new Error('htmlNode with id ' + elementId + ' not found');
                 }
+
+                return element;
             }
         });
 
-        Object.defineProperty(self, 'inputState', {
-            configurable: true,
-            enumerable: true,
-            writable: true,
-        });
+        Object.defineProperty(self, 'app', {
+            get: function () {
+                if (!(mainApp instanceof App)) {
+                    throw new Error('mainApp is not instance of App');
+                }
 
-        self.handleState('initial');
-    }
-
-    handleState(stateName) {
-        if ('string' !== stateName) {
-            throw new Error('provided state is not valid');
-        }
-
-        const self = this;
-        let check = false;
-
-        Object.values(self.getStates()).map(function (item) {
-            if (stateName === item.name) {
-                check = true;
-                self.inputState = stateName;
-                item.action();
+                return mainApp;
             }
         });
 
-        if (false === check) {
-            throw new Error('State is not within whitelisted ones');
-        }
-    }
+        Object.defineProperty(self, 'input', {
+            get: function () {
+                const input = self.container.querySelector('.username.input');
 
-    getStates() {
-        const self = this;
+                if (null === input) {
+                    throw new Error('input with class .username.input not found');
+                }
 
-        return [
-            {name: 'initial', action: self.initialize},
-            {name: 'deployed', action: self.addEventListeners},
-            {name: 'invalid', action: self.invalidRequest},
-            {name: 'valid', action: self.invalidRequest},
-        ]
+                return input;
+            }
+        });
+
+        Object.defineProperty(self, 'button', {
+            get: function () {
+                const button = self.container.querySelector('.load-username');
+
+                if (null === button) {
+                    throw new Error('button with class .load-username not found');
+                }
+
+                return button;
+            }
+        });
+
+        self.initialize();
     }
 
     initialize() {
         const self = this;
 
         self.container.innerHTML = GithubInput.getRawHtml();
-        self.handleState('deployed');
+        self.addEventListeners();
     }
-
 
     addEventListeners() {
         const self = this;
-        const button = self.container.querySelector('.load-username');
-        const input = self.container.querySelector('.username.input');
 
-        if (null === button && null === input) {
-            throw new Error('class .load-username or .username.input not found');
-        }
+        self.button.addEventListener('click', function () {
+            let githubUser;
+            self.cleanseErrorStates();
 
-        button.addEventListener('click', function () {
-            const inputValue = input.value;
-        })
+            try {
+                githubUser = GithubUser.fromStringUserName(self.input.value);
+            } catch (e) {
+                if ('provided username is not valid' === e.message) {
+                    return self.invalidUsername();
+                }
 
-        //TODO: add event listeners and go to next state,
-        // cover it with tests
+                throw e;
+            }
+
+            self.app.fetchProfile(githubUser);
+        });
     }
 
-    invalidRequest() {
+    invalidUsername() {
+        const self = this;
+        self.input.classList.add('input--error');
+    }
 
+    cleanseErrorStates() {
+        const self = this;
+        self.input.classList.remove('input--error');
     }
 
     static getRawHtml() {
@@ -87,7 +97,7 @@ export class GithubInput {
             '        <div class="control">' +
             '          <input class="input username" type="text" placeholder="enter github username">' +
             '        </div>' +
-            '        <div class="control">\n' +
+            '        <div class="control">' +
             '          <button class="button is-info load-username">' +
             '            Load' +
             '          </button>' +
