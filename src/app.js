@@ -47,4 +47,18 @@ export class App {
         timeline.appendHtml();
         GithubInput.hideSpinner();
     }
+
+    handleInvalidFetchState(e) {
+        if (!(e instanceof Error)) {
+            throw new Error('invalid argument for function');
+        }
+
+        const rawProfile = document.getElementById('githubProfile');
+        const rawTimeline = document.getElementById('user-timeline');
+
+        rawProfile.innerHTML = '<h2 class="subtitle is-4">Profile</h2><span>user not found</span>';
+        rawTimeline.innerHTML = '<h2 class="subtitle is-4">History</h2>' +
+            '<img src="https://s3.eu-central-1.amazonaws.com/blazej.m8b.pl/tsh/images/2kvyb4.jpg">';
+        GithubInput.hideSpinner();
+    }
 }

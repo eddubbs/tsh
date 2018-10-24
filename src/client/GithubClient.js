@@ -1,4 +1,5 @@
 import {GithubUser} from "../entity/GithubUser";
+import {GithubInput} from "../components/GithubInput";
 
 // Due to there are no credentials over calls by now, there is no need of constructor/credentials builder;
 
@@ -12,6 +13,7 @@ export class GithubClient {
         fetch('https://api.github.com/users/' + githubUser.name)
             .then(response => { return GithubClient.handleResponse(response) })
             .then(body => {observerCallback.updateGithubProfile(body)})
+            .catch(e => {observerCallback.handleInvalidFetchState(e)})
     }
 
     static fetchUserTimeline(githubUser, observerCallback) {
@@ -34,6 +36,10 @@ export class GithubClient {
             return response.json()
         }
 
-        throw new Error('Could not fetch username. Error: ' + response.status);
+        if (404 === response.status) {
+            throw new Error('Could not fetch username');
+        }
+
+        throw new Error('Could not fetch. Response status: ' + response.status);
     }
 }
