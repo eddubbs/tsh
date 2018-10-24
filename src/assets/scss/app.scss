@@ -26,3 +26,10 @@
 .input--error {
   border: solid 1px red;
 }
+
+@media screen and (max-width: 1088px) {
+  // Added this padding, because it was looking awful. Really.
+  body .container {
+    padding: 20px;
+  }
+}
