@@ -71,4 +71,24 @@ export class GithubUser {
             'login': actor.display_login,
         });
     }
+
+    static fromStringUserName(username) {
+        if ('string' !== typeof username) {
+            throw new Error('provided username is not a string');
+        }
+
+        const regexp = new RegExp(/^[a-zA-Z0-9-_]+$/);
+
+        if (!username.match(regexp)) {
+            throw new Error('provided username is not valid');
+        }
+
+        return new GithubUser({
+            'name': username,
+            'bio': false,
+            'avatar_url': false,
+            'html_url': false,
+            'login': false,
+        });
+    }
 }

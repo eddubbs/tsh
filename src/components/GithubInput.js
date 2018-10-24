@@ -64,10 +64,15 @@ export class GithubInput {
     addEventListeners() {
         const self = this;
         const button = self.container.querySelector('.load-username');
+        const input = self.container.querySelector('.username.input');
 
-        if (null === button) {
-            throw new Error('.load-username class was not found')
+        if (null === button && null === input) {
+            throw new Error('class .load-username or .username.input not found');
         }
+
+        button.addEventListener('click', function () {
+            const inputValue = input.value;
+        })
 
         //TODO: add event listeners and go to next state,
         // cover it with tests

@@ -46,7 +46,48 @@ describe('GithubUserTest', function () {
        }
 
        expect(thrown).to.be.true;
-   })
+   });
+
+   it('test valid fromString static constructor', function () {
+       const validUserName = 'baboonX_0-1B';
+       const validUser = GithubUser.fromStringUserName(validUserName);
+
+       expect(validUser).to.be.instanceOf(GithubUser);
+   });
+
+   it('test invalid fromString static constructor', function () {
+       const withSpace = 'space4 Comrade';
+       const withSpecialChar = 'space4$';
+       const objectInsteadOfString = {};
+       let thrown;
+       let thrown1;
+       let thrown2;
+
+       try {
+           thrown = GithubUser.fromStringUserName(withSpace);
+       } catch (e) {
+           expect(e.message).to.be.equal('provided username is not valid');
+           thrown = true;
+       }
+
+       try {
+           thrown1 = GithubUser.fromStringUserName(withSpecialChar);
+       } catch(e) {
+           expect(e.message).to.be.equal('provided username is not valid');
+           thrown1 = true;
+       }
+
+       try {
+           thrown2 = GithubUser.fromStringUserName(objectInsteadOfString);
+       } catch(e) {
+           expect(e.message).to.be.equal('provided username is not a string');
+           thrown2 = true;
+       }
+
+       expect(thrown).to.be.true;
+       expect(thrown1).to.be.true;
+       expect(thrown2).to.be.true;
+   });
 });
 
 const validPullRequestEvent = {
