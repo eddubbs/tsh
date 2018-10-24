@@ -4,8 +4,29 @@
   margin-bottom: 8px;
 }
 
-.gh-username img{
+.gh-username {
+  display: grid;
+  grid-template-rows: auto auto;
+  display: -ms-grid;
+  -ms-grid-rows: auto auto;
+}
+
+.gh-username img {
   width: 32px;
+  margin: 5px;
+  -ms-grid-row: 1;
+}
+
+.gh-username a {
+  color: #18d17d;
+  font-weight: 500;
+  font-size: 18px;
+  -ms-grid-row: 2;
+}
+
+.gh-username a:hover {
+  font-weight: 600;
+  cursor: pointer;
 }
 
 #profile-bio{
