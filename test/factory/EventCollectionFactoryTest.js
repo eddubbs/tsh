@@ -65,6 +65,7 @@ describe('EventCollectionFactoryTest', function () {
     it('test appendHtml() from Timeline', function () {
         const timeline = new Timeline('row', validResponse);
         timeline.appendHtml();
+
         expect(document.getElementById('row').children.length).to.be.equal(2);
         expect(document.querySelector('.timeline').children.length).to.be.equal(14);
     })

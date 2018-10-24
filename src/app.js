@@ -1,9 +1,7 @@
 import './assets/scss/app.scss';
-import $ from 'cash-dom';
 import {GithubUser} from "./entity/GithubUser";
 import {Profile} from "./components/Profile";
 import {Timeline} from "./components/Timeline";
-import {EventCollectionFactory} from "./factory/EventCollectionFactory";
 import {GithubClient} from "./client/GithubClient";
 import {GithubInput} from "./components/GithubInput";
 

@@ -37,10 +37,10 @@ export class GithubEvent {
 
         function validateProfileResponse() {
             let allowedObjectTypes = [
-                {name: 'payload',       type: 'object'},
-                {name: 'repo',          type: 'object'},
-                {name: 'type',          type: 'string'},
-                {name: 'created_at',    type: 'string'},
+                { name: 'payload',       type: 'object' },
+                { name: 'repo',          type: 'object' },
+                { name: 'type',          type: 'string' },
+                { name: 'created_at',    type: 'string' },
             ];
 
             Object.values(allowedObjectTypes).map(function (item) {
