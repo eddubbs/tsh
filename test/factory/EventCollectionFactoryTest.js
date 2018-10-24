@@ -62,9 +62,9 @@ describe('EventCollectionFactoryTest', function () {
         expect(childrenLength / primaryTimelineMarkerLength).to.be.equal(2);
     });
 
-    it('test renderHtmlCollection() from Timeline', function () {
+    it('test appendHtml() from Timeline', function () {
         const timeline = new Timeline('row', validResponse);
-        timeline.renderHtmlCollection();
+        timeline.appendHtml();
         expect(document.getElementById('row').children.length).to.be.equal(2);
         expect(document.querySelector('.timeline').children.length).to.be.equal(14);
     })

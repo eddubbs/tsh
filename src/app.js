@@ -44,9 +44,7 @@ export class App {
     }
 
     updateGithubTimeline(body) {
-        console.log(body);
-        const eventCollection = new EventCollectionFactory(body).getAllowedEventsOnly();
-        const timeline = new Timeline(eventCollection);
+        const timeline = new Timeline('user-timeline', body);
         timeline.appendHtml();
     }
 }

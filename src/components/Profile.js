@@ -79,6 +79,14 @@ export class Profile {
 
     appendHtml() {
         const self = this;
-        self.container.appendChild(self.getMediaElement());
+        const profile = document.createElement('DIV');
+        const subtitle = document.createElement('H2');
+        subtitle.classList.add('subtitle');
+        subtitle.classList.add('is-4');
+        profile.classList.add('profile');
+        profile.append(self.getMediaElement());
+        self.container.innerHTML = '';
+        self.container.append(subtitle);
+        self.container.append(profile);
     }
 }

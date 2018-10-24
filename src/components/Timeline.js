@@ -16,7 +16,7 @@ export class Timeline {
             },
         });
 
-        Object.defineProperty(self, 'collection', {
+        Object.defineProperty(self, 'factory', {
             get: function () {
                 if ('object' !== typeof responseBody) {
                     throw new Error('Invalid responseBody');
@@ -27,14 +27,16 @@ export class Timeline {
         });
     }
 
-    renderHtmlCollection() {
+    appendHtml() {
         const self = this;
         const headline = document.createElement('H2');
+        const filledNode = self.factory.getFilledNode();
         headline.classList.add('subtitle');
         headline.classList.add('is-4');
-        headline.innerHTML = 'HISTORY';
 
+        headline.innerHTML = 'History';
+        self.container.innerHTML = '';
         self.container.append(headline);
-        self.container.append(self.collection.getFilledNode());
+        self.container.append(filledNode);
     }
 }

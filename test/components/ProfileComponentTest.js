@@ -13,7 +13,7 @@ describe('ProfileComponentTest', function () {
             html_url: 'https://fakeadress.com/index.html',
             login: 'baboonX'
         };
-        const expectedHTML = '<div class="media"><div class="media-left"><figure class="media-left image is-64x64"><img id="profile-image" src="https://fakeadress.com/avatar.png"></figure></div><div class="media-left"><div class="title is-5" id="profile-name"></div><div class="subtitle is-6"><a href="https://fakeadress.com/index.html" id="profile-url"></a></div></div></div>';
+        const expectedHTML = '<h2 class="subtitle is-4"></h2><div class="profile"><div class="media"><div class="media-left"><figure class="media-left image is-64x64"><img id="profile-image" src="https://fakeadress.com/avatar.png"></figure></div><div class="media-left"><div class="title is-5" id="profile-name"></div><div class="subtitle is-6"><a href="https://fakeadress.com/index.html" id="profile-url"></a></div></div></div></div>';
 
         const user = new GithubUser(validResponse);
         const profile = new Profile(user, 'beforeRow');
