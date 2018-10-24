@@ -85,6 +85,11 @@ export class GithubEvent {
             if ('undefined' !== even && true === even) {
                 mainNode.classList.add('is-primary');
                 marker.classList.add('is-primary');
+                nestedContent.querySelector('.repo-name').classList.add('grey');
+            }
+
+            if ('undefined' !== even && false === even) {
+                nestedContent.querySelector('.repo-name').classList.add('green');
             }
         }
 
@@ -106,16 +111,15 @@ export class GithubEvent {
 
             function prepareActionSpan() {
                 const actionSpan = document.createElement('SPAN');
-                actionSpan.innerHTML = self.payload.action;
-                actionSpan.classList.add('timeline__action--js');
+                actionSpan.innerHTML = self.payload.action + ' ';
 
                 return actionSpan;
             }
 
             function prepareEventAnchor() {
-                const eventAnchor = document.createElement('A');
                 const contextCase = EventCollectionFactory.getPayloadActionName(self);
-                eventAnchor.href = self.payload[contextCase].url;
+                const eventAnchor = document.createElement('A');
+                eventAnchor.href = self.payload[contextCase].html_url;
                 eventAnchor.innerHTML = contextCase.replace('_', ' ');
 
                 return eventAnchor;
@@ -132,6 +136,19 @@ export class GithubEvent {
                 return paragraph;
             }
 
+            function preparePullRequestContext() {
+                const contextDiv = document.createElement('DIV');
+                const contextSpan = document.createElement('SPAN');
+                const contextAnchor = document.createElement('A');
+                contextAnchor.href = self.payload.pull_request_url;
+                contextAnchor.innerHTML = 'pull request';
+                contextSpan.innerHTML = ' to ';
+                contextDiv.append(contextSpan);
+                contextDiv.append(contextAnchor);
+
+                return contextDiv;
+            }
+
             function getNestedContent() {
                 const nestedContent = document.createElement('DIV');
                 const nestedSpanContent = prepareNestedSpanContent();
@@ -142,6 +159,11 @@ export class GithubEvent {
                 nestedContent.append(nestedSpanContent);
                 nestedContent.append(actionSpan);
                 nestedContent.append(eventAnchor);
+
+                if ('PullRequestReviewCommentEvent' === self.eventType) {
+                    nestedContent.append(preparePullRequestContext());
+                }
+
                 nestedContent.append(paragraphWithRepo);
 
                 return nestedContent;

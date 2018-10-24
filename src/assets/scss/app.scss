@@ -37,13 +37,18 @@
   padding-bottom:1em;
 }
 
-.timeline__action--js {
-  margin-left: 4px;
-  margin-right: 4px;
-}
-
 .input--error {
   border: solid 1px red;
+}
+
+.repo-name.grey a {
+  color: #dbdbdb;
+  font-weight: bold;
+}
+
+.repo-name.green a {
+  color: #18d17d;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 1088px) {
