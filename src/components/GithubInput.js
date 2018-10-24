@@ -68,17 +68,21 @@ export class GithubInput {
             let githubUser;
             self.cleanseErrorStates();
 
-            try {
+            async function createGithubUser() {
                 githubUser = GithubUser.fromStringUserName(self.input.value);
-            } catch (e) {
-                if ('provided username is not valid' === e.message) {
-                    return self.invalidUsername();
-                }
 
-                throw e;
+                return githubUser;
             }
 
-            self.app.fetchProfile(githubUser);
+            createGithubUser()
+                .then((githubUser) => self.app.fetchProfile(githubUser))
+                .catch((e) => {
+                    if ('provided username is not valid' === e.message) {
+                        return self.invalidUsername();
+                    }
+
+                    throw e;
+                });
         });
     }
 

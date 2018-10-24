@@ -1,14 +1,12 @@
+import {GithubUser} from "../entity/GithubUser";
+
 export class Profile {
     constructor(githubUser, containerId) {
         const self = this;
 
         Object.defineProperty(self, 'user', {
             get: function () {
-                const undefinedCheck = 'object' !== typeof githubUser
-                    || 'undefined' === typeof githubUser.constructor;
-                const check = undefinedCheck || githubUser.constructor.name !== 'GithubUser';
-
-                if (check) {
+                if (!(githubUser instanceof GithubUser)) {
                     throw new Error('GithubUser is not instance of itself');
                 }
 
@@ -40,11 +38,13 @@ export class Profile {
             const img = document.createElement('IMG');
 
             mediaLeft.classList.add('media-left');
-            figure.classList.add('media-left', 'image', 'is-64x64');
+            figure.classList.add('media-left');
+            figure.classList.add('image');
+            figure.classList.add('is-64x64');
             img.id = 'profile-image';
             img.src = self.user.avatar;
-            figure.appendChild(img);
-            mediaLeft.appendChild(figure);
+            figure.append(img);
+            mediaLeft.append(figure);
 
             return mediaLeft;
         }
@@ -56,23 +56,24 @@ export class Profile {
             const anchorProfileUrl = document.createElement('A');
 
             mediaContent.classList.add('media-left');
-            profileName.classList.add('title', 'is-5');
+            profileName.classList.add('title');
+            profileName.classList.add('is-5');
             profileName.id = 'profile-name';
             profileName.innerText = self.user.name;
-            subtitle.classList.add('subtitle', 'is-6');
+            subtitle.classList.add('subtitle');
+            subtitle.classList.add('is-6');
             anchorProfileUrl.href = self.user.url;
             anchorProfileUrl.id = 'profile-url';
             anchorProfileUrl.innerText = '@' + self.user.login;
-
-            subtitle.appendChild(anchorProfileUrl);
-            mediaContent.appendChild(profileName);
-            mediaContent.appendChild(subtitle);
+            subtitle.append(anchorProfileUrl);
+            mediaContent.append(profileName);
+            mediaContent.append(subtitle);
 
             return mediaContent;
         }
 
-        mediaElement.appendChild(getMediaLeft());
-        mediaElement.appendChild(getMediaContent());
+        mediaElement.append(getMediaLeft());
+        mediaElement.append(getMediaContent());
 
         return mediaElement;
     }

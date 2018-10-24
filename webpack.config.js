@@ -13,7 +13,7 @@ const config = {
   mode: 'development',
 
   entry: {
-    app: './index.js'
+    app: ['babel-polyfill', './index.js']
   },
 
   output: {
