@@ -36,7 +36,7 @@ export class GithubEvent {
         });
 
         function validateProfileResponse() {
-            let allowedObjectTypes = [
+            const allowedObjectTypes = [
                 { name: 'payload',       type: 'object' },
                 { name: 'repo',          type: 'object' },
                 { name: 'type',          type: 'string' },
