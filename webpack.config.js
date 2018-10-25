@@ -8,7 +8,7 @@ const extractPlugin = new ExtractTextPlugin({filename: './assets/css/app.css'});
 const config = {
   context: path.resolve(__dirname, 'src'),
 
-  mode: 'development',
+  mode: 'production',
 
   entry: {
     app: ['babel-polyfill', './index.js']
@@ -25,7 +25,7 @@ const config = {
       {
         test: /\.js$/,
         include: /src/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/],
         use: {
           loader: "babel-loader",
           options: {
@@ -89,9 +89,6 @@ const config = {
     stats: 'errors-only',
     open: true
   },
-
-  devtool: 'inline-source-map'
-
 };
 
 module.exports = config;
