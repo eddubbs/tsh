@@ -1,0 +1,32 @@
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Github-browser</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bulma-timeline@3.0.0/dist/css/bulma-timeline.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar-brand">
+    <div class="navbar-item" id="github-user-fetch">
+    </div>
+    <div class="navbar-item">
+      <div class="loader is-hidden" id="spinner"></div>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="columns is-1-tablet">
+    <div class="profile-container column is-one-third-widescreen is-half-desktop is-half-tablet is-half"
+         id="githubProfile">
+      <h2 class="subtitle is-4">Profile</h2>
+      <img src="https://s3.eu-central-1.amazonaws.com/blazej.m8b.pl/tsh/images/profile_skeleton.png">
+    </div>
+    <div class="events-container column" id="user-timeline">
+      <h2 class="subtitle is-4">History</h2>
+      <img src="https://s3.eu-central-1.amazonaws.com/blazej.m8b.pl/tsh/images/timeline_skeleton.png">
+    </div>
+  </div>
+</div>
+</body>
+</html>
